@@ -98,6 +98,7 @@ jobs:
         sed -i 's/luci-theme-bootstrap/luci-theme-ifit/g' feeds/luci/collections/luci/Makefile
         sed -i "s/%D %V, %C/openwrt $(date +'%m.%d') by kenzo/g" package/base-files/files/etc/banner
         ./scripts/feeds update -a && ./scripts/feeds install -a
+        make menuconfig
         cp -f feeds/smpackage/.github/diy/${{matrix.target}}.config .config && make defconfig
         
     - name: Download package
@@ -196,12 +197,4 @@ jobs:
         retain_days: 1
         keep_minimum_runs: 0
 
-    - name: Remove old Releases
-      uses: dev-drprasad/delete-older-releases@master
-      if: env.UPLOAD_RELEASE == 'true' && !cancelled()
-      with:
-        keep_latest: 6
-        delete_tags: true
-      env:
-        GITHUB_TOKEN: ${{ secrets.REPO_TOKEN }}
         
