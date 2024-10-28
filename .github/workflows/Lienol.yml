@@ -98,7 +98,7 @@ jobs:
         sed -i 's/luci-theme-bootstrap/luci-theme-ifit/g' feeds/luci/collections/luci/Makefile
         sed -i "s/%D %V, %C/openwrt $(date +'%m.%d') by kenzo/g" package/base-files/files/etc/banner
         ./scripts/feeds update -a && ./scripts/feeds install -a
-        cp -f feeds/smpackage/.github/diy/${{matrix.target}}.config .config && make menuconfig && make defconfig
+        cp -f feeds/smpackage/.github/diy/${{matrix.target}}.config .config && make defconfig
         
     - name: Download package
       working-directory: ./openwrt
